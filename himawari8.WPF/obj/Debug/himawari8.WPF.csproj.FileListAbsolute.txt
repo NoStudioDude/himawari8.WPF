@@ -39,3 +39,4 @@ D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\wndSettings.baml
 D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.g.resources
 D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.Properties.Resources.resources
 D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.csproj.GenerateResource.Cache
+D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.csprojResolveAssemblyReference.cache
