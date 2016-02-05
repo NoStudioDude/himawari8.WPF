@@ -2,8 +2,6 @@ $ts = New-TimeSpan -Hours -2 -Minutes -30 #Number of hours and minutes to add/su
 $now = ((Get-Date -Second 00) + $ts)
 $now = $now.AddMinutes(-($now.minute % 10))
 
-
-
 $width = 550
 $level = "4d" #Level can be 4d, 8d, 16d, 20d 
 $numblocks = 4 #this apparently corresponds directly with the level, keep this exactly the same as level without the 'd'

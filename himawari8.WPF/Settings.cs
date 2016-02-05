@@ -54,11 +54,42 @@ namespace himawari8.WPF
         {
             return Properties.Settings.Default.Startup;
         }
-
         public static void SetStartUp(bool value)
         {
             Properties.Settings.Default.Startup = value;
             Properties.Settings.Default.Save();
+        }
+
+        public static bool GetTimeLapse()
+        {
+            return Properties.Settings.Default.Timelapse;
+        }
+        public static void SetTimeLapse(bool value)
+        {
+            Properties.Settings.Default.Timelapse = value;
+            Properties.Settings.Default.Save();
+        }
+
+        public static void SetWpStyle(string style)
+        {
+            Properties.Settings.Default.wpStyle = style;
+
+            Properties.Settings.Default.Save();
+        }
+        public static string GetWpStyle()
+        {
+            return Properties.Settings.Default.wpStyle;
+        }
+
+        public static void SetWpQuality(string quality)
+        {
+            Properties.Settings.Default.wpQuality = quality;
+
+            Properties.Settings.Default.Save();
+        }
+        public static string GetWpQuality()
+        {
+            return Properties.Settings.Default.wpQuality;
         }
     }
 }

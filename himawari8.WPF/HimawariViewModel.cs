@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -54,28 +52,32 @@ namespace himawari8.WPF
         public void StartTimer()
         {
             if(Settings.GetShowNotification())
-                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Starting..", $"Starting background timer. Ticking every {Settings.GetUpdateTime()} minutes", ToolTipIcon.Info);
+                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Starting..", $"Background worker initiated. Updating wallpaper every {Settings.GetUpdateTime()} minutes", ToolTipIcon.Info);
 
             himawariTimer.Start();
         }
 
-        public void StopTimer()
+        public void StopTimer(bool isReseting = false)
         {
             himawariTimer.Stop();
             himawariUpdater.Dispose();
 
-            if (Settings.GetShowNotification())
-                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Stopping..", $"Stopping background timer", ToolTipIcon.Info);
+            if (Settings.GetShowNotification() && !isReseting)
+                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Stopping..", "Stopping background worker", ToolTipIcon.Info);
         }
 
         public void ResetTimer()
         {
-            StopTimer();
+            if(himawariTimer.IsEnabled)
+                StopTimer(true);
+
             SetTimer();
             StartTimer();
         }
 
         private readonly BackgroundWorker himawariUpdater = new BackgroundWorker();
+
+        private HimawariController himawariController;
 
         public HimawariViewModel()
         {
@@ -86,31 +88,22 @@ namespace himawari8.WPF
         
         private void HimawariUpdater_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
+            if (Settings.GetShowNotification())
+                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Wallpaper..", $"Setting desktop wallpaper", ToolTipIcon.Info);
         }
 
         private void HimawariUpdater_DoWork(object sender, DoWorkEventArgs e)
         {
             if (Settings.GetShowNotification())
-                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Updating..", "Updating earth background", ToolTipIcon.Info);
+                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Updating..", "Download latest earth images..", ToolTipIcon.Info);
 
             GetLastestEarthBackground();
         }
 
         public void GetLastestEarthBackground()
         {
-            var directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts");
-            var vbsFile = Path.Combine(directoryPath, Settings.VBSFileName);
-            
-            if (File.Exists(vbsFile))
-            {
-                var process = new Process();
-                process.StartInfo.WorkingDirectory = directoryPath;
-                process.StartInfo.FileName = Settings.VBSFileName;
-                process.StartInfo.Arguments = "//B //Nologo";
-                process.StartInfo.CreateNoWindow = true;
-                process.Start();
-            }
+            himawariController = new HimawariController(Settings.GetTimeLapse());
+            himawariController.BuildWallpaper();
         }
     }
 }

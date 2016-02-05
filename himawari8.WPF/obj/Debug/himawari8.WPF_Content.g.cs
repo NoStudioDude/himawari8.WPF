@@ -9,8 +9,5 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icons/planet32.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/himawari.ps1")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/run.bat")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/himawari.vbs")]
 
 

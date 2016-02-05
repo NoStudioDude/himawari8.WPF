@@ -26,9 +26,6 @@ D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.csproj.ResolveCo
 D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.exe
 D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\himawari8.WPF.pdb
 D:\Projects\Git\himawari8\himawari8.WPF\bin\Debug\Icons\planet32.ico
-D:\Projects\Git\himawari8\himawari8.WPF\bin\Debug\Scripts\himawari.ps1
-D:\Projects\Git\himawari8\himawari8.WPF\bin\Debug\Scripts\run.bat
-D:\Projects\Git\himawari8\himawari8.WPF\bin\Debug\Scripts\himawari.vbs
 D:\Projects\Git\himawari8\himawari8.WPF\bin\Debug\himawari8.WPF.exe
 D:\Projects\Git\himawari8\himawari8.WPF\bin\Debug\himawari8.WPF.pdb
 D:\Projects\Git\himawari8\himawari8.WPF\obj\Debug\MainWindow.g.cs

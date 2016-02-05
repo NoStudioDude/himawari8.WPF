@@ -82,5 +82,41 @@ namespace himawari8.WPF.Properties {
                 this["NotificationTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Timelapse {
+            get {
+                return ((bool)(this["Timelapse"]));
+            }
+            set {
+                this["Timelapse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Basic")]
+        public string wpQuality {
+            get {
+                return ((string)(this["wpQuality"]));
+            }
+            set {
+                this["wpQuality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Fit")]
+        public string wpStyle {
+            get {
+                return ((string)(this["wpStyle"]));
+            }
+            set {
+                this["wpStyle"] = value;
+            }
+        }
     }
 }

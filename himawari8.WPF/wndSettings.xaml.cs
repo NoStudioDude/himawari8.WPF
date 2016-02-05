@@ -11,25 +11,79 @@ namespace himawari8.WPF
         {
             InitializeComponent();
 
-            txtUpdateTime.Text = Settings.GetUpdateTime().ToString();
+            var updater = Settings.GetUpdateTime();
+            cbUpdater.Items.Add(10);
+            cbUpdater.Items.Add(15);
+            cbUpdater.Items.Add(30);
+            cbUpdater.Items.Add(45);
+            cbUpdater.Items.Add(60);
+
+            foreach (int u in cbUpdater.Items)
+            {
+                if (u == updater)
+                {
+                    cbUpdater.SelectedItem = u;
+                    break;
+                }
+            }
+
             ckShowNotification.IsChecked = Settings.GetShowNotification();
             txtNotificationTime.Text = Settings.GetNotificationTime().ToString();
                         
             ckStartup.IsChecked = Settings.GetStartUp();
+
+            var quality = Settings.GetWpQuality();
+            cbQuality.Items.Add("Basic");//4d
+            cbQuality.Items.Add("Good");//8d
+            cbQuality.Items.Add("HD");//16d
+            cbQuality.Items.Add("Ultra");//20d
+
+            foreach (var q in cbQuality.Items)
+            {
+                if (q.ToString() == quality)
+                {
+                    cbQuality.SelectedItem = q;
+                    break;
+                }
+            }
+
+            var style = Settings.GetWpStyle();
+            cbStyle.Items.Add("Tiled");
+            cbStyle.Items.Add("Centered");
+            cbStyle.Items.Add("Stretched");
+            cbStyle.Items.Add("Fill");
+            cbStyle.Items.Add("Fit");
+            foreach (var s in cbStyle.Items)
+            {
+                if (s.ToString() == style)
+                {
+                    cbStyle.SelectedItem = s;
+                    break;
+                }
+            }
+
         }
 
         private void wndSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var updateTime = 0;
 
-            if (int.TryParse(txtUpdateTime.Text, out updateTime))
+            if (int.TryParse(cbUpdater.SelectedItem.ToString(), out updateTime))
             {
                 Settings.SetUpdateTime(updateTime);
+            }
+
+            if (int.TryParse(txtNotificationTime.Text, out updateTime))
+            {
+                Settings.SetNotificationTime(updateTime);
             }
 
             Settings.SetShowNotification((bool)ckShowNotification.IsChecked);
             Settings.SetStartUp((bool)ckStartup.IsChecked);
             CreateShortcut();
+
+            Settings.SetWpQuality(cbQuality.SelectedItem.ToString());
+            Settings.SetWpStyle(cbStyle.SelectedItem.ToString());
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
