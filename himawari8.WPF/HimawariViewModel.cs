@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -102,8 +103,33 @@ namespace himawari8.WPF
 
         public void GetLastestEarthBackground()
         {
-            himawariController = new HimawariController(Settings.GetTimeLapse());
-            himawariController.BuildWallpaper();
+            if (CanPingGoogle())
+            {
+                himawariController = new HimawariController(Settings.GetTimeLapse());
+                himawariController.BuildWallpaper();
+            }
+            else
+                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Internet is unavailable", "Please make sure you have an active internet connection.", ToolTipIcon.Warning);
+        }
+
+        private static bool CanPingGoogle()
+        {
+            const int timeout = 1000;
+            const string host = "google.com";
+
+            var ping = new Ping();
+            var buffer = new byte[32];
+            var pingOptions = new PingOptions();
+
+            try
+            {
+                var reply = ping.Send(host, timeout, buffer, pingOptions);
+                return (reply != null && reply.Status == IPStatus.Success);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
