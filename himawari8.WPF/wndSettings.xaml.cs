@@ -28,8 +28,10 @@ namespace himawari8.WPF
             }
 
             ckShowNotification.IsChecked = Settings.GetShowNotification();
+            
             txtNotificationTime.Text = Settings.GetNotificationTime().ToString();
-                        
+            txtNotificationTime.Visibility = (bool)ckShowNotification.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+
             ckStartup.IsChecked = Settings.GetStartUp();
 
             var quality = Settings.GetWpQuality();
