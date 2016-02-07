@@ -42,9 +42,7 @@ namespace himawari8.WPF
         
         private const int WIDTH = 550;
         private const string HIMAWARI_FOLDER_NAME = "Himawari";
-        private const string HIMAWARI_TIMELAPSE_FOLDER_NAME = "Timelapse";
-
-        private bool isTimelapse;
+        private const string HIMAWARI_SAVED_FOLDER_NAME = "Saved";
 
         private static DateTime GetCurrentDateTime()
         {
@@ -68,12 +66,7 @@ namespace himawari8.WPF
         {
             get
             {
-                var output = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), HIMAWARI_FOLDER_NAME);
-
-                if (isTimelapse)
-                    output = Path.Combine(output, HIMAWARI_TIMELAPSE_FOLDER_NAME);
-
-                return output;
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), HIMAWARI_FOLDER_NAME);
             }
         }
 
@@ -81,18 +74,14 @@ namespace himawari8.WPF
         {
             get
             {
-                var filename = $"latest.{FILE_EXTENSION}";
-                if (isTimelapse)
-                    filename = $"{_year}{_month}{_day}_{_time}.{FILE_EXTENSION}";
-
-                return filename;
+                return $"latest.{FILE_EXTENSION}";
             }
         }
 
         private string url => $"http://himawari8-dl.nict.go.jp/himawari8/img/D531106/{LEVEL}/{WIDTH}/{_year}/{_month}/{_day}/{_time}00";
         private Bitmap image;
 
-        public HimawariController(bool isTimelapse)
+        public HimawariController()
         {
             now = GetCurrentDateTime();
             _time = now.ToString("HHmm");
@@ -130,14 +119,12 @@ namespace himawari8.WPF
             }
 
             image = new Bitmap((WIDTH * NUM_BLOCKS), (WIDTH * NUM_BLOCKS));
-
-            this.isTimelapse = isTimelapse;
-
+            
             var output = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), HIMAWARI_FOLDER_NAME);
             if (!Directory.Exists(output))
                 Directory.CreateDirectory(output);
 
-            var outputTimelapse = Path.Combine(output, HIMAWARI_TIMELAPSE_FOLDER_NAME);
+            var outputTimelapse = Path.Combine(output, HIMAWARI_SAVED_FOLDER_NAME);
             if (!Directory.Exists(outputTimelapse))
                 Directory.CreateDirectory(outputTimelapse);
         }
@@ -170,12 +157,21 @@ namespace himawari8.WPF
                     }
                 }
             }
-            
-            image.Save(Path.Combine(_outputPath, _outputFileName), GetImageFormat());
+
+            var latest = Path.Combine(_outputPath, _outputFileName);
+            image.Save(latest, GetImageFormat());
             image.Dispose();
 
-            if(!isTimelapse)
-                SetWallpaper();
+            if (Settings.GetSaveWallpaper())
+            {
+                var folderPath = Path.Combine(_outputPath, HIMAWARI_SAVED_FOLDER_NAME);
+                var filename = $"{_year}{_month}{_day}_{_time}.{FILE_EXTENSION}";
+                var destination = Path.Combine(folderPath, filename);
+
+                File.Copy(latest, destination);
+            }
+
+            SetWallpaper();
         }
 
         private ImageFormat GetImageFormat()

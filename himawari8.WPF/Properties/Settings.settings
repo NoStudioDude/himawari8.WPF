@@ -17,14 +17,14 @@
     <Setting Name="NotificationTime" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="Timelapse" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="wpQuality" Type="System.String" Scope="User">
       <Value Profile="(Default)">Basic</Value>
     </Setting>
     <Setting Name="wpStyle" Type="System.String" Scope="User">
       <Value Profile="(Default)">Fit</Value>
+    </Setting>
+    <Setting Name="SaveWallpaper" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

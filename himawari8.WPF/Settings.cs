@@ -60,16 +60,6 @@ namespace himawari8.WPF
             Properties.Settings.Default.Save();
         }
 
-        public static bool GetTimeLapse()
-        {
-            return Properties.Settings.Default.Timelapse;
-        }
-        public static void SetTimeLapse(bool value)
-        {
-            Properties.Settings.Default.Timelapse = value;
-            Properties.Settings.Default.Save();
-        }
-
         public static void SetWpStyle(string style)
         {
             Properties.Settings.Default.wpStyle = style;
@@ -90,6 +80,16 @@ namespace himawari8.WPF
         public static string GetWpQuality()
         {
             return Properties.Settings.Default.wpQuality;
+        }
+
+        public static bool GetSaveWallpaper()
+        {
+            return Properties.Settings.Default.SaveWallpaper;
+        }
+        public static void SetSaveWallpaper(bool value)
+        {
+            Properties.Settings.Default.SaveWallpaper = value;
+            Properties.Settings.Default.Save();
         }
     }
 }

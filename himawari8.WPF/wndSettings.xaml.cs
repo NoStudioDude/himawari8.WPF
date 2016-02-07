@@ -62,6 +62,8 @@ namespace himawari8.WPF
                 }
             }
 
+            ckSaveWallpaper.IsChecked = Settings.GetSaveWallpaper();
+
         }
 
         private void wndSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -84,6 +86,8 @@ namespace himawari8.WPF
 
             Settings.SetWpQuality(cbQuality.SelectedItem.ToString());
             Settings.SetWpStyle(cbStyle.SelectedItem.ToString());
+
+            Settings.SetSaveWallpaper((bool)ckSaveWallpaper.IsChecked);
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)

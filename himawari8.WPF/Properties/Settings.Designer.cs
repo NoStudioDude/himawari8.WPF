@@ -85,18 +85,6 @@ namespace himawari8.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Timelapse {
-            get {
-                return ((bool)(this["Timelapse"]));
-            }
-            set {
-                this["Timelapse"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Basic")]
         public string wpQuality {
             get {
@@ -116,6 +104,18 @@ namespace himawari8.WPF.Properties {
             }
             set {
                 this["wpStyle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveWallpaper {
+            get {
+                return ((bool)(this["SaveWallpaper"]));
+            }
+            set {
+                this["SaveWallpaper"] = value;
             }
         }
     }

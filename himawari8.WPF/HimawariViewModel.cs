@@ -105,7 +105,7 @@ namespace himawari8.WPF
         {
             if (CanPingGoogle())
             {
-                himawariController = new HimawariController(Settings.GetTimeLapse());
+                himawariController = new HimawariController();
                 himawariController.BuildWallpaper();
             }
             else

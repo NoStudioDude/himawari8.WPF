@@ -9,7 +9,7 @@
         Title="Himawari8.Settings" 
         ResizeMode="NoResize" 
         Width="330" 
-        Height="250"
+        Height="281"
         Closing="wndSettings_Closing">
     <StackPanel VerticalAlignment="top">
         <GroupBox Header="Background worker" VerticalAlignment="Top" Margin="2">
@@ -50,7 +50,8 @@
 
                 <Label Grid.Column="0" Grid.Row="1" Content="Wallpaper style" Margin="5"/>
                 <ComboBox Grid.Column="1" Grid.Row="1" Name="cbStyle" Width="120" Margin="5" HorizontalAlignment="Left" />
-                
+
+                <CheckBox Grid.ColumnSpan="2" Grid.Row="2" Content="Save wallpaper" Name="ckSaveWallpaper" Margin="5" />
             </Grid>
         </GroupBox>
     </StackPanel>
