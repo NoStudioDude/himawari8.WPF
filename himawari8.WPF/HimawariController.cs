@@ -129,17 +129,25 @@ namespace himawari8.WPF
                 Directory.CreateDirectory(outputTimelapse);
         }
 
-        public void BuildWallpaper()
+        public void BuildWallpaper(HimawariViewModel himawariViewModel)
         {
+            var downloadCount = 0;
             var graphics = Graphics.FromImage(image);
-            
+
+            himawariViewModel.SetBallonText($"Downloading images [0/{NUM_BLOCKS*NUM_BLOCKS}]");
+
+
             for (int y = 0; y < NUM_BLOCKS; y++)
             {
                 for (int x = 0; x < NUM_BLOCKS; x++)
                 {
+                    downloadCount++;
+
                     var thisUrl = $"{url}_{x.ToString()}_{y.ToString()}.png";
                     try
                     {
+                        himawariViewModel.SetBallonText($"Downloading images [{downloadCount}/{NUM_BLOCKS * NUM_BLOCKS}]");
+
                         var request = WebRequest.Create(thisUrl);
                         var response = request.GetResponse();
                         if (response != null)
@@ -151,26 +159,29 @@ namespace himawari8.WPF
                             response.Close();
                         }
                     }
-                    catch (Exception e)
-                    {
-                        Debug.Print(e.Message);
-                    }
+                    catch{}
                 }
             }
 
+            himawariViewModel.SetBallonText($"Saving '{_outputFileName}' wallpaper");
             var latest = Path.Combine(_outputPath, _outputFileName);
             image.Save(latest, GetImageFormat());
             image.Dispose();
 
             if (Settings.GetSaveWallpaper())
             {
+                himawariViewModel.SetBallonText("Saving wallpaper");
+
                 var folderPath = Path.Combine(_outputPath, HIMAWARI_SAVED_FOLDER_NAME);
                 var filename = $"{_year}{_month}{_day}_{_time}.{FILE_EXTENSION}";
                 var destination = Path.Combine(folderPath, filename);
 
-                File.Copy(latest, destination);
+                if(!File.Exists(destination))
+                    File.Copy(latest, destination);
+
             }
 
+            himawariViewModel.SetBallonText("Setting wallpaper");
             SetWallpaper();
         }
 

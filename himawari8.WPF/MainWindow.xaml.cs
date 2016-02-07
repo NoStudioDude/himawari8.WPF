@@ -53,10 +53,9 @@ namespace himawari8.WPF
             MenuItem menuItemClose = new MenuItem("Close");
             menuItemClose.Click += MenuItemClose_Click;
             
-            MenuItem menuItemTryNow = new MenuItem("Try now..");
+            MenuItem menuItemTryNow = new MenuItem("Run now..");
             menuItemTryNow.Click += (sender, e) =>
             {
-                trayIcon.ShowBalloonTip(1000, "Trying..", "Running", ToolTipIcon.Info);
                 viewModel.GetLastestEarthBackground();
             };
 

@@ -56,6 +56,7 @@ namespace himawari8.WPF
                 Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Starting..", $"Background worker initiated. Updating wallpaper every {Settings.GetUpdateTime()} minutes", ToolTipIcon.Info);
 
             himawariTimer.Start();
+            SetBallonText("Himawari8");
         }
 
         public void StopTimer(bool isReseting = false)
@@ -65,6 +66,8 @@ namespace himawari8.WPF
 
             if (Settings.GetShowNotification() && !isReseting)
                 Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Stopping..", "Stopping background worker", ToolTipIcon.Info);
+
+            SetBallonText("Idle");
         }
 
         public void ResetTimer()
@@ -89,8 +92,7 @@ namespace himawari8.WPF
         
         private void HimawariUpdater_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (Settings.GetShowNotification())
-                Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Wallpaper..", $"Setting desktop wallpaper", ToolTipIcon.Info);
+            SetBallonText("Himawari8");
         }
 
         private void HimawariUpdater_DoWork(object sender, DoWorkEventArgs e)
@@ -106,10 +108,12 @@ namespace himawari8.WPF
             if (CanPingGoogle())
             {
                 himawariController = new HimawariController();
-                himawariController.BuildWallpaper();
+                himawariController.BuildWallpaper(this);
             }
             else
                 Ballon.ShowBalloonTip(Settings.GetNotificationTime(), "Internet is unavailable", "Please make sure you have an active internet connection.", ToolTipIcon.Warning);
+
+            SetBallonText("Himawari8");
         }
 
         private static bool CanPingGoogle()
@@ -130,6 +134,11 @@ namespace himawari8.WPF
             {
                 return false;
             }
+        }
+
+        public void SetBallonText(string text)
+        {
+            Ballon.Text = text;
         }
     }
 }
